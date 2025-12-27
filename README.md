@@ -23,7 +23,7 @@ Diabetic foot ulcers affect approximately 6.3% of the global diabetic population
 - **Transition-based classification:** Predicts three clinically meaningful categories (Favorable, Acceptable, Unfavorable) rather than direct phase prediction
 - **Temporal feature engineering:** Novel approach normalizing clinical measurements by inter-appointment intervals to address irregular follow-up schedules
 - **Patient phenotyping:** Unsupervised clustering identifies fast-healer and slow-healer phenotypes for personalized trajectory forecasting
-- **Performance:** 77.0% ± 2.3% accuracy with balanced category performance (weighted F1: 0.77)
+- **Performance:** 78.0% ± 4.0% accuracy with balanced category performance (weighted F1: 0.76)
 
 ### Treatment Recommendation System
 - **Hierarchical similarity matching:** Combines case-based reasoning with clinical decision rules
@@ -308,18 +308,17 @@ Novel approaches addressing irregular appointment scheduling:
 
 | Metric | Value |
 |--------|-------|
-| Transition Accuracy | 77.0% ± 2.3% |
-| Balanced Accuracy | 69.4% ± 2.2% |
-| Weighted F1 Score | 76.5% ± 1.9% |
+| Transition Accuracy | 78.0% ± 4.0% |
+| Weighted F1 Score | 76.0% ± 2.0% |
 | Macro F1 Score | 69.7% ± 2.8% |
 
 ### Category-Specific Performance
 
 | Transition Category | Precision | Recall | F1 Score |
 |---------------------|-----------|--------|----------|
-| Favorable | 0.71 | 0.68 | 0.69 |
-| Acceptable | 0.82 | 0.85 | 0.83 |
-| Unfavorable | 0.65 | 0.63 | 0.64 |
+| Favorable | 0.77 | 0.73 | 0.75 |
+| Acceptable | 0.73 | 0.71 | 0.72 |
+| Unfavorable | 0.73 | 0.89 | 0.84 |
 
 ### Treatment Recommendations
 
