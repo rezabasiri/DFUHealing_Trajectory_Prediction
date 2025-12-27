@@ -1,0 +1,25 @@
+# Core dependencies for DFU Healing Trajectory Prediction
+
+# Data processing
+pandas>=1.3.0
+numpy>=1.21.0
+
+# Machine learning
+scikit-learn>=1.0.0
+imbalanced-learn>=0.9.0
+
+# Hyperparameter optimization
+scikit-optimize>=0.9.0
+
+# Visualization
+matplotlib>=3.4.0
+seaborn>=0.11.0
+
+# Explainability
+shap>=0.40.0
+
+# Scientific computing
+scipy>=1.7.0
+
+# Configuration management
+pyyaml>=5.4.0

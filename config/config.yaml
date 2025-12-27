@@ -1,0 +1,86 @@
+# Configuration file for DFU Healing Trajectory Prediction
+# Updated with combined_score_clinical config from Dec10 Optuna search
+
+# Data paths
+data:
+  csv_path: "data/DataMaster_Processed_V12_WithMissing.csv"
+  save_dir: "saved_models"
+
+# Training configuration
+training:
+  use_cross_validation: true
+  n_folds: 3
+  train_split_ratio: 0.8
+  n_patient_clusters: 2
+  resampling_strategy: "combined"  # Options: 'none', 'oversample', 'undersample', 'combined', 'smote'
+  augmentation_type: "safe_sequential"  # Options: 'none', 'safe_sequential', 'all_combinations'
+  random_seed: 42
+  n_seeds: 2  # Number of seeds for ensemble averaging (use 2 to match search)
+  skip_first_appt_chronicity: true  # Skip chronicity check for first appointments
+
+# Transition weighting configuration (from Dec10 combined_score_clinical config)
+transition_weighting:
+  weight_method: "favorable_boost"  # Options: 'balanced', 'favorable_boost', 'clinical'
+  favorable_boost: 1.0
+  unfavorable_boost: 1.5
+  acceptable_boost: 1.0
+  chronicity_aware: true
+  # FIXED thresholds (matching search script)
+  i_threshold: 21  # Days in I phase before I→I becomes Unfavorable
+  p_threshold: 42  # Days in P phase before P→P becomes Unfavorable (6 weeks)
+  r_threshold: null  # R→R is always Acceptable
+
+# Feature selection configuration (from combined_score_clinical)
+feature_selection:
+  use_feature_selection: true
+  feature_selection_method: "top_n"  # Options: 'importance_threshold', 'top_n'
+  n_top_features: 30
+  importance_threshold: 0.95
+
+# Model configuration (from combined_score_clinical)
+model:
+  type: "ExtraTrees"
+  extratrees:
+    n_estimators: 800
+    max_depth: 20
+    min_samples_split: 15
+    min_samples_leaf: 1
+    max_features: 1.0  # Use all features (after selection)
+    class_weight: "balanced"
+    bootstrap: true
+    criterion: "log_loss"
+    ccp_alpha: 0.005
+    min_weight_fraction_leaf: 0.0
+    max_samples: null
+  gradientboosting:
+    n_estimators: 100
+    max_depth: 15
+    learning_rate: 0.01
+    min_samples_split: 22
+    min_samples_leaf: 15
+    subsample: 0.953
+    max_features: "log2"
+
+# Probability calibration configuration (from combined_score_clinical)
+calibration:
+  apply_calibration: true
+  method: "sigmoid"  # sigmoid for Platt scaling (more robust)
+  use_per_class_calibration: false  # Disabled in best config
+  use_temperature_scaling: true  # Enabled for post-hoc calibration
+  temperature_method: "ece"  # Optimize temperature using ECE minimization
+  use_holdout_calibration: false
+  calibration_split: 0.20
+
+# Focal loss configuration (disabled in combined_score_clinical)
+focal_loss:
+  enabled: false
+  gamma: 1.0
+  n_iterations: 3
+
+# Treatment recommendation configuration
+treatment:
+  acute_threshold: 90
+  subacute_threshold: 180
+  chronic_threshold: 365
+  standard_offloading: 1.0
+  standard_dressing: "Betadine"
