@@ -62,8 +62,6 @@ DFUHealing_Trajectory_Prediction/
 ├── figures/                            # Generated figures and metrics
 ├── data/                               # Data directory
 │   └── DataMaster_Processed_V12_WithMissing.csv
-├── notes.md                            # Paper documentation
-├── TRACKER.md                          # Development change log
 ├── requirements.txt                    # Python dependencies
 └── README.md                           # This file
 ```
